@@ -37,20 +37,30 @@ const Header = () => {
   return (
     <header
       ref={searchRef}
-      className="fixed bg-secondary h-14 top-0 left-0 right-0 px-4 flex justify-between items-center z-20 "
+      className="fixed bg-secondary h-14 top-0 left-0 right-0 px-4 flex justify-between items-center z-20"
     >
-      <Button href="/lists" ariaLabel="My bookmarks">
+      <Button href="/lists" ariaLabel="Mis favoritos">
         <Bookmark />
       </Button>
+
       <Link href="/">
-        <a className="serif text-2xl">Magazine</a>
+        <a className="flex items-center gap-2.5 no-underline">
+          <img src="/ut.png" alt="Universidad del Tolima" className="w-8 h-8 rounded" />
+          <span className="flex flex-col leading-tight">
+            <span className="text-[10px] uppercase tracking-[0.12em] font-semibold" style={{ color: '#7A0019' }}>
+              Universidad del Tolima
+            </span>
+            <span className="serif text-lg">Revista Digital</span>
+          </span>
+        </a>
       </Link>
-      <Button onClick={() => setShowSearch(true)} ariaLabel="Search">
+
+      <Button onClick={() => setShowSearch(true)} ariaLabel="Buscar">
         {showSearch ? <Close /> : <Search />}
       </Button>
 
       <div className={cn(s.searchContainer, showSearch ? 'flex' : 'hidden')}>
-        <label className="flex items-center border-b w-full py-2 pl-3 focus-within:border-primary md:pb-0">
+        <label className="flex items-center w-full py-2 pl-3 focus-within:border-accent border-b border-primary-20 md:pb-0">
           <span className="absolute">
             <Search />
           </span>
@@ -59,7 +69,7 @@ const Header = () => {
             inputMode="search"
             name="search"
             id="search"
-            placeholder="Search..."
+            placeholder="Buscar..."
             className="bg-transparent outline-none w-full py-2 pr-2 pl-9 search-btn-none lg:text-sm"
             onKeyUp={(e) => {
               e.preventDefault()
@@ -76,7 +86,7 @@ const Header = () => {
               }
             }}
           />
-          <Button onClick={() => setShowSearch(false)} ariaLabel="Close search">
+          <Button onClick={() => setShowSearch(false)} ariaLabel="Cerrar">
             <Close />
           </Button>
         </label>

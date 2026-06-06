@@ -10,28 +10,43 @@ const Nav = ({ categories }: { categories: TCategory[] }) => {
     <nav
       aria-label="Categories Nav"
       className={cn(
-        'overflow-x-scroll sticky flex whitespace-nowrap px-4 top-14 z-10 bg-secondary scrollbar-none transform transition-transform duration-300',
-        'md:justify-center',
+        'overflow-x-scroll sticky flex whitespace-nowrap px-6 top-14 z-10 bg-secondary scrollbar-none transform transition-transform duration-300',
+        'md:justify-center md:gap-1',
         isHidden ? '-translate-y-full' : 'translate-y-0'
       )}
+      style={{ borderBottom: '1px solid var(--primary-10)' }}
     >
       <Link href={`/`}>
         <a
           className={cn(
-            'uppercase px-6 py-2 text-xs font-bold text-primary-90',
-            router.pathname === '/' && 'border-b-2 border-primary'
+            'uppercase px-5 py-3 text-xs font-bold tracking-wider transition-colors duration-150',
+            router.pathname === '/'
+              ? 'text-accent'
+              : 'text-primary-60 hover:text-primary'
           )}
+          style={
+            router.pathname === '/'
+              ? { borderBottom: '2px solid var(--accent)' }
+              : {}
+          }
         >
-          HOME
+          INICIO
         </a>
       </Link>
       {categories.map((category) => (
         <Link href={`/${category.slug}`} key={category.slug}>
           <a
             className={cn(
-              'uppercase py-2 px-4 text-xs font-bold text-primary-90',
-              router.query.slug === category.slug && 'border-b-2 border-primary'
+              'uppercase py-3 px-4 text-xs font-bold tracking-wider transition-colors duration-150',
+              router.query.slug === category.slug
+                ? 'text-accent'
+                : 'text-primary-60 hover:text-primary'
             )}
+            style={
+              router.query.slug === category.slug
+                ? { borderBottom: '2px solid var(--accent)' }
+                : {}
+            }
           >
             {category.title}
           </a>

@@ -48,7 +48,7 @@ function CategoryPage({
       <Layout navigation={navigation}>
         <Hero title={category.title} />
         <div className="text-center my-auto">
-          <p>There are no articles to show yet.</p>
+          <p style={{ color: 'var(--primary-60)' }}>No hay artículos para mostrar.</p>
         </div>
       </Layout>
     )
@@ -62,8 +62,6 @@ function CategoryPage({
         openGraph={{
           title: category.title,
           description: category.description,
-          // Only include OG image if exists
-          // This will break disabling Strapi Image Optimization
           ...(category.cover && {
             images: Object.values(category.cover.formats).map((image) => {
               return {
@@ -79,30 +77,29 @@ function CategoryPage({
       <Layout navigation={navigation}>
         <Hero title={category.title} />
         {isTablet ? (
-          //Tablet and smaller devices
-          <ArticlesCarousel title="Top stories" articles={articles} />
+          <ArticlesCarousel title="Destacados" articles={articles} />
         ) : (
           <ArticlesHero articles={articles} />
         )}
 
-        <ArticlesList articles={articles} title="Recent" />
+        <ArticlesList articles={articles} title="Recientes" />
 
         <div className="lg:py-24 lg:flex lg:gap-28 lg:mx-auto">
           <ArticlesList
             articles={articles}
-            title="Featured"
+            title="Destacados"
             variant="top"
             className="lg:w-1/2"
           />
           <ArticlesList
             articles={articles}
-            title="Popular"
+            title="Populares"
             variant="top"
             className="lg:w-1/2"
           />
         </div>
 
-        <ArticlesList articles={articles} title="More articles" />
+        <ArticlesList articles={articles} title="Más artículos" />
       </Layout>
     </>
   )

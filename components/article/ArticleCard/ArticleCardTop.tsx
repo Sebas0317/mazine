@@ -11,33 +11,35 @@ type Props = {
 const ArticleCardTop = ({ article, index }: Props) => {
   return (
     <article className={s.top}>
-      <div className={s.topNumber}>{index + 1}</div>
+      <div className={s.topNumber}>{index}</div>
       <section>
         <Link href={`/articles/${article.slug}`}>
           <a>
             <h3
               className={cn(
                 s.title,
-                'serif leading-tight overflow-hidden max-h-28 mb-3 hover:underline text-xl'
+                'serif leading-snug overflow-hidden max-h-24 mb-2 transition-colors duration-150'
               )}
+              style={{ fontSize: '1.05rem' }}
             >
               {article.title}
             </h3>
           </a>
         </Link>
 
-        <div className="text-sm flex flex-wrap">
+        <div className="text-sm flex flex-wrap" style={{ color: 'var(--primary-60)' }}>
           <p>
-            By
+            Por
             <Link href={`/contributors/${article.author.slug}`}>
-              <a className="pl-1 font-bold hover:underline">
+              <a className="pl-1 font-semibold transition-colors duration-150 hover:text-accent">
                 {article.author.name}
               </a>
             </Link>
           </p>
           <span className="mx-3">|</span>
           <Link href={`/${article.category.slug}`}>
-            <a className="text-accent hover:underline">
+            <a className="transition-colors duration-150 hover:text-accent"
+               style={{ color: 'var(--accent)' }}>
               {article.category.title}
             </a>
           </Link>

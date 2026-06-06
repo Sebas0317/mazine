@@ -6,21 +6,33 @@ import cn from 'classnames'
 import Image from 'next/image'
 import ArticleCardTop from '../ArticleCard/ArticleCardTop'
 import ActionButtons from '../Article/ActionButtons'
+import { getArticleImageLarge } from '@lib/articleImages'
+
+const CATEGORY_IMAGES: Record<string, string> = {
+  politica: 'https://images.unsplash.com/photo-1541872703-74c5e44368f9?w=800&h=500&fit=crop',
+  constitucionalismo: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=800&h=500&fit=crop',
+  estado: 'https://images.unsplash.com/photo-1575505586567-535a1e0e0b5f?w=800&h=500&fit=crop',
+  democracia: 'https://images.unsplash.com/photo-1540910419892-4a36d2afc4cb?w=800&h=500&fit=crop',
+  derechos: 'https://images.unsplash.com/photo-1516302752625-fccf828c51be?w=800&h=500&fit=crop',
+  'participacion-ciudadana': 'https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=800&h=500&fit=crop',
+  'casos-de-estudio': 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&h=500&fit=crop',
+}
 
 const ArticlesHero = ({ articles }: { articles: TArticle[] }) => {
+  const coverUrl = articles[0]?.cover
+    ? getMediaURL(articles[0].cover.formats.medium?.url || articles[0].cover.url)
+    : getArticleImageLarge() || CATEGORY_IMAGES[articles[0]?.category?.slug] || CATEGORY_IMAGES['casos-de-estudio']
+
   return (
-    <section className="mb-4 flex justify-between items-center">
-      <div style={{ width: '45%' }}>
+    <section className="mb-4 flex justify-between items-start gap-8">
+      <div style={{ width: '48%' }}>
         <article className={s.hero}>
           <Link href={`/articles/${articles[0].slug}`}>
             <a aria-label={`Link to ${articles[0].title}`}>
               <div className={s.cover}>
                 <Image
-                  src={getMediaURL(
-                    articles[0].cover.formats.medium?.url ||
-                      articles[0].cover.url
-                  )}
-                  alt={articles[0].cover.alternativeText || ''}
+                  src={coverUrl}
+                  alt={articles[0].cover?.alternativeText || articles[0].category.title}
                   layout="fill"
                   className="object-cover"
                 />
@@ -28,9 +40,10 @@ const ArticlesHero = ({ articles }: { articles: TArticle[] }) => {
             </a>
           </Link>
 
-          <section className="pt-8">
+          <section className="pt-6">
             <Link href={`/${articles[0].category.slug}`}>
-              <a className="uppercase text-sm font-bold px-2 py-1 text-accent border border-accent rounded-sm hover:underline">
+              <a className="uppercase text-xs font-bold tracking-wider px-3 py-1 rounded-sm transition-colors duration-150"
+                 style={{ color: 'var(--accent)', border: '1px solid var(--accent)' }}>
                 {articles[0].category.title}
               </a>
             </Link>
@@ -39,17 +52,18 @@ const ArticlesHero = ({ articles }: { articles: TArticle[] }) => {
                 <h3
                   className={cn(
                     s.title,
-                    'serif leading-tight overflow-hidden max-h-28 mt-4 mb-2 hover:underline'
+                    'serif leading-snug overflow-hidden max-h-28 mt-4 mb-3 transition-colors duration-150'
                   )}
+                  style={{ fontSize: '1.3rem' }}
                 >
                   {articles[0].title}
                 </h3>
               </a>
             </Link>
-            <div className="flex text-sm">
-              By
+            <div className="flex text-sm" style={{ color: 'var(--primary-60)' }}>
+              Por
               <Link href={`/contributors/${articles[0].author.slug}`}>
-                <a className="pl-1 pr-2 font-bold hover:underline">
+                <a className="pl-1 pr-2 font-semibold transition-colors duration-150 hover:text-accent">
                   {articles[0].author.name}
                 </a>
               </Link>
@@ -64,7 +78,7 @@ const ArticlesHero = ({ articles }: { articles: TArticle[] }) => {
         </article>
       </div>
 
-      <div style={{ width: '45%' }}>
+      <div style={{ width: '48%' }}>
         {articles.slice(0, 4).map((article, index) => (
           <ArticleCardTop
             article={article}

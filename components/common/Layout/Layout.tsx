@@ -18,7 +18,7 @@ const Layout = ({ children, navigation, isMarkdown = false }: Props) => {
 
   useEffect(() => {
     if (isOffline) {
-      addToast('No Internet Connection')
+      addToast('Sin conexión a internet')
     }
   }, [addToast, isOffline])
 
@@ -29,8 +29,8 @@ const Layout = ({ children, navigation, isMarkdown = false }: Props) => {
 
       <main
         className={cn(
-          'min-h-screen px-4 pt-24 pb-20 flex flex-col mx-auto md:w-3/4',
-          isMarkdown ? 'lg:w-7/12' : 'lg:w-2/3 xl:w-8/12'
+          'min-h-screen px-5 pt-24 pb-20 flex flex-col mx-auto',
+          isMarkdown ? 'max-w-3xl' : 'max-w-6xl'
         )}
       >
         {children}

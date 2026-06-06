@@ -14,7 +14,7 @@ class MyDocument extends Document {
   }
   render() {
     return (
-      <Html lang="en">
+      <Html lang="es">
         {process.env.NODE_ENV === 'production' ? (
           // Only run GA on Production
           <Head>

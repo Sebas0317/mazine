@@ -18,7 +18,7 @@ module.exports = (phase) => {
     return {
       /* Localhost on development for next/image component */
       images: {
-        domains: ['localhost', 'res.cloudinary.com'],
+        domains: ['localhost', 'res.cloudinary.com', 'images.unsplash.com', 'source.unsplash.com', 'picsum.photos', 'i.picsum.photos', 'images.pexels.com'],
       },
     }
   }
@@ -42,7 +42,7 @@ module.exports = (phase) => {
     // https://nextjs.org/docs/basic-features/image-optimization#configuration
 
     images: {
-      domains: ['res.cloudinary.com'],
+      domains: ['res.cloudinary.com', 'images.unsplash.com', 'source.unsplash.com', 'picsum.photos', 'i.picsum.photos', 'images.pexels.com'],
     },
     async rewrites() {
       return [

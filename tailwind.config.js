@@ -4,10 +4,14 @@ module.exports = {
   theme: {
     borderColor: (theme) => ({
       ...theme('colors'),
-      DEFAULT: theme('colors.primary.20', 'currentColor'),
+      DEFAULT: theme('colors.primary.20', '#E5E5E5'),
     }),
     boxShadow: {
-      DEFAULT: '0 5px 15px 0 rgba(0, 0, 0, 0.15)',
+      DEFAULT: 'var(--shadow-md)',
+      sm: 'var(--shadow-sm)',
+      md: 'var(--shadow-md)',
+      lg: 'var(--shadow-lg)',
+      none: '0 0 #0000',
     },
     colors: {
       transparent: 'transparent',
@@ -17,19 +21,16 @@ module.exports = {
         95: 'var(--primary-95)',
         90: 'var(--primary-90)',
         80: 'var(--primary-80)',
-        60: 'var(--primary-60)',
+        60: '#666666',
         40: 'var(--primary-40)',
-        20: 'var(--primary-20)',
-        10: 'var(--primary-10)',
-        '05': 'var(--primary-05)',
+        20: '#E5E5E5',
+        10: '#F0F0F0',
+        '05': '#FAFAFA',
       },
       secondary: 'var(--secondary)',
       'black-a-30': 'var(--black-a-30)',
       accent: 'var(--accent)',
-      pink: {
-        DEFAULT: 'var(--pink)',
-        light: 'var(--pink-light)',
-      },
+      'accent-hover': 'var(--accent-hover)',
     },
     fontFamily: {
       sans: 'var(--font-sans)',
@@ -37,7 +38,7 @@ module.exports = {
     },
     extend: {
       lineHeight: {
-        article: '1.675',
+        article: '1.8',
       },
       inset: {
         '1/2': '50%',
@@ -60,9 +61,9 @@ module.exports = {
         },
       },
       animation: {
-        'fade-in': 'fadeIn 0.15s ease-in-out',
-        'slide-up': 'slideUp 0.15s ease-in-out',
-        'fade-in-up': 'fadeIn 0.15s ease-in-out, slideUp 0.15s ease-in-out',
+        'fade-in': 'fadeIn 0.2s ease-in-out',
+        'slide-up': 'slideUp 0.2s ease-in-out',
+        'fade-in-up': 'fadeIn 0.2s ease-in-out, slideUp 0.2s ease-in-out',
       },
       keyframes: {
         fadeIn: {
@@ -70,14 +71,20 @@ module.exports = {
           to: { opacity: 1 },
         },
         slideUp: {
-          from: { transform: 'translateY(50%)' },
-          to: { transform: 'translateY(0)' },
+          from: { transform: 'translateY(8px)', opacity: 0 },
+          to: { transform: 'translateY(0)', opacity: 1 },
         },
+      },
+      transitionDuration: {
+        '250': '250ms',
       },
     },
   },
   variants: {
-    extend: {},
+    extend: {
+      boxShadow: ['hover', 'focus'],
+      scale: ['hover', 'focus'],
+    },
   },
   plugins: [],
 }

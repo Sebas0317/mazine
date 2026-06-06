@@ -1,29 +1,28 @@
-// social base url
-export const TwitterURL = 'https://twitter.com'
-
-// Global Data
 export const SITE_URL = 'https://magazine-starter.vercel.app'
-export const SITE_NAME = 'Magazine'
-export const SITE_LOGO =
-  'https://res.cloudinary.com/dliiwavlg/image/upload/v1615590785/magazineog_qppjhg.jpg'
+export const SITE_NAME = 'Revista Digital'
+export const SITE_LOGO = ''
 
 export const SOCIAL_USERNAMES = {
-  twitter: 'edgarlr_',
-  instagram: 'edgar.lr',
-  facebook: 'edgarlr',
+  twitter: null,
+  instagram: null,
+  facebook: null,
   youtube: null,
-  linkedin: 'edgarlr',
+  linkedin: null,
 }
 
-// Default SEO
 export const SEO_DESCRIPTION =
-  'All-in-one  open source digital magazine starter kit with high performance and fully customizable. '
+  'Revista académica digital - Universidad del Tolima, IDEAD, Ingeniería de Sistemas, Constitución Política.'
 
 export const OG_IMAGE = {
   large: {
-    url:
-      'https://res.cloudinary.com/dliiwavlg/image/upload/v1615590785/magazineog_qppjhg.jpg',
+    url: '',
     width: 1200,
     height: 627,
   },
 }
+
+export const UT_LOGO = `
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" fill="none">
+  <rect width="40" height="40" rx="4" fill="#7A0019"/>
+  <text x="20" y="26" text-anchor="middle" fill="white" font-family="Georgia, serif" font-size="18" font-weight="bold">UT</text>
+</svg>`

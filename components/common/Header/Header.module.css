@@ -1,12 +1,16 @@
 .searchContainer {
-  @apply justify-center items-center fixed bg-secondary top-0 left-0 right-0 border-primary py-6 px-4 md:py-0 md:w-2/5 md:left-auto lg:w-3/12;
+  @apply justify-center items-center fixed top-0 left-0 right-0 py-6 px-4 md:py-0 md:w-2/5 md:left-auto lg:w-3/12;
+  background-color: var(--secondary);
+  border-bottom: 1px solid var(--primary-20);
 }
 
 @media screen and (max-width: 767px) {
   .searchContainer::before {
     content: '';
     z-index: -1;
-    @apply absolute top-0 right-0 left-0 h-screen bg-secondary opacity-60;
+    @apply absolute top-0 right-0 left-0 h-screen;
+    background-color: var(--secondary);
+    opacity: 0.6;
     transform: translateY(6rem);
   }
 }

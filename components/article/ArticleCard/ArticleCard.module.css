@@ -1,14 +1,19 @@
 .default {
-  @apply cursor-pointer py-6 border-b relative;
+  @apply cursor-pointer py-6 relative transition-shadow duration-200;
+  border-bottom: 1px solid var(--primary-10);
   & .cover {
-    @apply relative pb-3/5 w-full xl:pb-2/5;
+    @apply relative pb-3/5 w-full overflow-hidden rounded-lg;
+    box-shadow: var(--shadow-sm);
   }
   & ul {
     @apply absolute bottom-0 right-0 pb-3 flex;
   }
 }
 .default:last-child {
-  @apply border-none;
+  border-bottom: none;
+}
+.default:hover .cover {
+  box-shadow: var(--shadow-md);
 }
 
 @media screen and (min-width: 1024px) {
@@ -26,31 +31,43 @@
 }
 
 .top {
-  @apply flex py-6 items-center justify-between relative min-w-full cursor-pointer;
+  @apply flex py-5 items-center justify-between relative min-w-full cursor-pointer border-b;
+  border-bottom: 1px solid var(--primary-10);
+  transition: opacity 0.15s;
   & section {
     flex: 1;
   }
   & .topNumber {
     flex: 0.125;
-    @apply text-2xl font-bold text-primary-20;
+    @apply text-2xl font-bold;
+    color: var(--primary-20);
   }
+}
+.top:hover {
+  opacity: 0.8;
 }
 
 .hero {
-  @apply relative cursor-pointer transition-transform transform scale-100;
+  @apply relative cursor-pointer;
   & .cover {
-    @apply relative pb-3/5 w-full;
+    @apply relative pb-3/5 w-full overflow-hidden rounded-lg;
+    box-shadow: var(--shadow-sm);
   }
   & ul {
     @apply absolute -bottom-2 -right-2 flex;
   }
 }
+.hero:hover .cover {
+  box-shadow: var(--shadow-md);
+}
 
 .lists {
   @apply cursor-pointer mb-10 py-16 border-b flex flex-row-reverse items-center justify-between relative mx-auto w-full mr-10 md:w-10/12 md:py-12;
+  border-bottom: 1px solid var(--primary-10);
   scroll-snap-align: start;
   & .cover {
-    @apply relative pb-2/5 flex-1 xl:pb-1/4;
+    @apply relative pb-2/5 flex-1 xl:pb-1/4 overflow-hidden rounded-lg;
+    box-shadow: var(--shadow-sm);
   }
   & section {
     flex: 1.5;
@@ -65,14 +82,15 @@
   @apply cursor-pointer flex flex-row-reverse items-center justify-between relative min-w-full mr-10;
   scroll-snap-align: start;
   & .cover {
-    @apply relative pb-2/3 flex-1 xl:pb-1/3;
+    @apply relative pb-2/3 flex-1 xl:pb-1/3 overflow-hidden rounded-lg;
+    box-shadow: var(--shadow-sm);
   }
   & section {
     flex: 1.5;
     @apply mr-8;
   }
   & ul {
-    @apply flex absolute bottom-0 bg-primary right-0 transform translate-x-1 translate-y-1;
+    @apply flex absolute bottom-0 right-0 transform translate-x-1 translate-y-1;
   }
 }
 

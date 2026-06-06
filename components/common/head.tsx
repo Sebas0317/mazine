@@ -22,11 +22,11 @@ const Head = () => {
     <>
       <DefaultSeo
         titleTemplate={`%s | ${SITE_NAME}`}
-        title="Online Magazine Starter Kit"
+        title="Revista Digital - Universidad del Tolima"
         description={SEO_DESCRIPTION}
         openGraph={{
           type: 'website',
-          locale: 'en_IE',
+          locale: 'es_CO',
           url: SITE_URL,
           site_name: SITE_NAME,
           images: Object.values(OG_IMAGE).map((image) => {
@@ -72,7 +72,8 @@ const Head = () => {
         {/* General and favicon */}
         <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-        <meta name="theme-color" content="#ffffff" />
+        <meta name="theme-color" content="#FAFAFA" />
+        <meta name="color-scheme" content="light dark" />
         <meta name="msapplication-TileColor" content="#603cba" />
 
         <link
