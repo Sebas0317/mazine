@@ -38,12 +38,42 @@ function CitationBlock({ article }: { article: TArticle }) {
   )
 }
 
+function BackToTop() {
+  const [visible, setVisible] = useState(false)
+  useEffect(() => {
+    const onScroll = () => setVisible(window.scrollY > 600)
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+  if (!visible) return null
+  return (
+    <button
+      onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+      className="fixed bottom-8 right-8 w-10 h-10 rounded-full flex items-center justify-center z-30 transition-opacity duration-200 hover:opacity-80"
+      style={{ backgroundColor: 'var(--accent)', color: '#fff', boxShadow: 'var(--shadow-md)' }}
+      aria-label="Volver arriba"
+    >
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M18 15l-6-6-6 6" />
+      </svg>
+    </button>
+  )
+}
+
+function getReadingTime(content: string): string {
+  const text = content.replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim()
+  const words = text.split(' ').length
+  const minutes = Math.max(1, Math.round(words / 200))
+  return `~${minutes} min de lectura`
+}
+
 function Article({ article }: { article: TArticle | undefined }) {
   if (!article) return <p>Something went wrong</p>
 
   return (
-    <article>
+    <article className="animate-fade-in-up">
       <ReadingProgress />
+      <BackToTop />
 
       <header className="py-8 text-center max-w-4xl mx-auto">
         <div className="flex items-center justify-center gap-3 mb-3">
@@ -70,6 +100,8 @@ function Article({ article }: { article: TArticle | undefined }) {
           </Link>
           {' — '}
           <DateDisplay date={article.published_at as string} />
+          {' — '}
+          <span>{getReadingTime(article.content)}</span>
         </p>
 
         {(() => {
