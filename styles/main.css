@@ -44,27 +44,6 @@
   --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.08);
 }
 
-[data-theme='dark'] {
-  --primary: #f0f0f0;
-  --primary-95: #f5f5f5;
-  --primary-90: #ebebeb;
-  --primary-80: #d9d9d9;
-  --primary-60: #a3a3a3;
-  --primary-40: #808080;
-  --primary-20: #4d4d4d;
-  --primary-10: #2e2e2e;
-  --primary-05: #1a1a1a;
-  --secondary: #121212;
-  --accent: #d4506e;
-  --accent-hover: #e06a84;
-  --ut-red-light: rgba(212, 80, 110, 0.12);
-  --black-a-30: rgba(255, 255, 255, 0.08);
-  --primary-a-30: var(--black-a-30);
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.2);
-  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.3);
-  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.35);
-}
-
 *,
 *:before,
 *:after {
@@ -105,4 +84,101 @@ body {
     -webkit-touch-callout: none;
     user-select: none;
   }
+}
+
+/* Drop cap */
+.drop-cap::first-letter {
+  float: left;
+  font-family: var(--font-serif);
+  font-size: 4rem;
+  line-height: 0.8;
+  padding-right: 0.5rem;
+  padding-top: 0.25rem;
+  color: var(--accent);
+}
+
+/* Reading progress bar */
+.reading-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background-color: var(--accent);
+  z-index: 100;
+  transition: width 0.1s linear;
+}
+
+/* Academic top bar */
+.academic-top-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background-color: var(--accent);
+  z-index: 50;
+}
+
+/* Fleuron divider */
+.fleuron-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  margin: 2.5rem 0;
+  color: var(--accent);
+  font-size: 1.25rem;
+  user-select: none;
+}
+.fleuron-divider::before,
+.fleuron-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background-color: var(--primary-20);
+}
+
+/* Citation block */
+.citation-block {
+  margin: 2.5rem 0;
+  padding: 1.25rem 1.5rem;
+  border-left: 3px solid var(--accent);
+  background-color: var(--primary-05);
+  border-radius: 0 0.5rem 0.5rem 0;
+  font-size: 0.875rem;
+  line-height: 1.7;
+  color: var(--primary-60);
+}
+.citation-block strong {
+  color: var(--primary);
+  font-weight: 600;
+}
+
+/* ISSN badge */
+.issn-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  padding: 0.125rem 0.5rem;
+  border-radius: 2px;
+}
+
+/* Vol/Issue badge */
+.vol-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  padding: 0.125rem 0.5rem;
+  border-radius: 2px;
 }

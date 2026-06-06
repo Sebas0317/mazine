@@ -1,18 +1,17 @@
 import { getMediaURL } from '@lib/api'
 import Link from 'next/link'
-import AuthorSocialMedia from './AuthorSocialMedia'
 import Image from 'next/image'
 
 function AuthorCard({ author }: { author: TContributor }) {
-  const thumbnailUrl = getMediaURL(
-    author.featured?.profile_image.formats.thumbnail?.url
+  const thumbnailUrl = author.featured?.profile_image && getMediaURL(
+    author.featured.profile_image.formats.thumbnail?.url
   )
 
   return (
-    <div className="flex py-2 items-center">
-      {author.featured && (
+    <div className="flex py-4 items-start gap-5">
+      {thumbnailUrl && (
         <Link href={`/contributors/${author.slug}`}>
-          <figure className="relative w-12 h-12 mr-5">
+          <figure className="relative w-16 h-16 flex-shrink-0">
             <Image
               src={thumbnailUrl}
               className="rounded-full"
@@ -25,10 +24,16 @@ function AuthorCard({ author }: { author: TContributor }) {
 
       <div>
         <Link href={`/contributors/${author.slug}`}>
-          <a className="serif text-xl">{author.name}</a>
+          <a className="serif text-lg font-semibold">{author.name}</a>
         </Link>
-
-        <AuthorSocialMedia urls={author.urls} />
+        <div className="text-xs uppercase tracking-wider mt-0.5" style={{ color: 'var(--accent)' }}>
+          {author.role || 'Autor'}
+        </div>
+        {author.featured?.description && (
+          <p className="text-sm mt-2 leading-relaxed" style={{ color: 'var(--primary-60)' }}>
+            {author.featured.description}
+          </p>
+        )}
       </div>
     </div>
   )

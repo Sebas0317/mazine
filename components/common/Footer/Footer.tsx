@@ -1,6 +1,4 @@
 import Link from 'next/link'
-import ThemeSwitch from '../ThemeSwitch'
-import s from './Footer.module.css'
 
 const Footer = ({ categories, pages }: TNavigation) => {
   const year = new Date().getFullYear()
@@ -24,6 +22,9 @@ const Footer = ({ categories, pages }: TNavigation) => {
             </div>
           </div>
         </div>
+        <div className="flex items-center justify-center gap-3 mt-2">
+          <span className="issn-badge">ISSN 2806-XXXX</span>
+        </div>
         <p className="text-sm mt-2" style={{ color: 'var(--primary-60)' }}>
           Constitución Política &mdash; Portafolio Digital Académico
         </p>
@@ -45,11 +46,6 @@ const Footer = ({ categories, pages }: TNavigation) => {
           </Link>
         ))}
       </nav>
-
-      {/* Theme switch */}
-      <div className="flex justify-center mb-4">
-        <ThemeSwitch />
-      </div>
 
       <p className="text-center text-xs" style={{ color: 'var(--primary-40)' }}>
         &copy; {year} Universidad del Tolima. Todos los derechos reservados.

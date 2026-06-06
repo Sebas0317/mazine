@@ -1,24 +1,60 @@
 import Link from 'next/link'
 import { Markdown } from '@components/common/Markdown'
 import AuthorCard from './AuthorCard'
-import { Date } from '@components/ui/Date'
-import ActionButtons from './ActionButtons'
+import { Date as DateDisplay } from '@components/ui/Date'
 import { getMediaURL } from '@lib/api'
 import { getArticleImageLarge } from '@lib/articleImages'
 import Image from 'next/image'
+import { useState, useEffect, useCallback } from 'react'
+
+function ReadingProgress() {
+  const [width, setWidth] = useState('0%')
+  const handleScroll = useCallback(() => {
+    const scrollTop = window.scrollY
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight
+    if (docHeight > 0) {
+      setWidth(`${Math.min((scrollTop / docHeight) * 100, 100)}%`)
+    }
+  }, [])
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [handleScroll])
+  return <div className="reading-progress" style={{ width }} />
+}
+
+function CitationBlock({ article }: { article: TArticle }) {
+  const year = article.published_at ? new Date(article.published_at).getFullYear() : new Date().getFullYear()
+  const url = `https://mazine.vercel.app/articles/${article.slug}`
+  return (
+    <div className="citation-block">
+      <strong>Cómo citar:</strong><br />
+      {article.author?.name} ({year}). {article.title}.<br />
+      <em>Revista Digital - Universidad del Tolima</em>, Vol. 1, Núm. 1.<br />
+      <span style={{ fontSize: '0.8rem' }}>
+        ISSN: 2806-XXXX &mdash; {url}
+      </span>
+    </div>
+  )
+}
 
 function Article({ article }: { article: TArticle | undefined }) {
   if (!article) return <p>Something went wrong</p>
 
   return (
     <article>
-      <header className="py-8 text-center max-w-3xl mx-auto">
-        <Link href={`/${article.category.slug}`}>
-          <a className="uppercase text-xs font-bold tracking-widest transition-colors duration-150 hover:opacity-70"
-             style={{ color: 'var(--accent)' }}>
-            {article.category.title}
-          </a>
-        </Link>
+      <ReadingProgress />
+
+      <header className="py-8 text-center max-w-4xl mx-auto">
+        <div className="flex items-center justify-center gap-3 mb-3">
+          <span className="vol-badge">Vol. 1 &middot; Núm. 1</span>
+          <Link href={`/${article.category.slug}`}>
+            <a className="uppercase text-xs font-bold tracking-widest transition-colors duration-150 hover:opacity-70"
+               style={{ color: 'var(--accent)' }}>
+              {article.category.title}
+            </a>
+          </Link>
+        </div>
 
         <h1 className="serif mt-4 mb-4 leading-tight"
             style={{ fontSize: '2rem', letterSpacing: '-0.02em' }}>
@@ -33,12 +69,8 @@ function Article({ article }: { article: TArticle | undefined }) {
             </a>
           </Link>
           {' — '}
-          <Date date={article.published_at as string} />
+          <DateDisplay date={article.published_at as string} />
         </p>
-
-        <div className="flex justify-center mt-4">
-          <ActionButtons article={article} />
-        </div>
 
         {(() => {
           const fallbackUrl = getArticleImageLarge()
@@ -71,23 +103,26 @@ function Article({ article }: { article: TArticle | undefined }) {
         })()}
       </header>
 
-      <div className="max-w-3xl mx-auto">
-        <Markdown
-          content={article.content}
-          variant={
-            article.category?.slug === 'casos-de-estudio'
-              ? 'editorial'
-              : undefined
-          }
-        />
+      <div className="max-w-4xl mx-auto">
+        <div className="drop-cap">
+          <Markdown
+            content={article.content}
+            variant={
+              article.category?.slug === 'casos-de-estudio'
+                ? 'editorial'
+                : undefined
+            }
+          />
+        </div>
+
+        <div className="fleuron-divider">&#10087;</div>
+
+        <CitationBlock article={article} />
       </div>
 
-      <footer className="border-t py-8 mt-24 max-w-3xl mx-auto"
+      <footer className="border-t py-8 mt-24 max-w-4xl mx-auto"
         style={{ borderTopColor: 'var(--primary-20)' }}>
         <AuthorCard author={article.author} />
-        <div className="mt-6">
-          <ActionButtons article={article} />
-        </div>
       </footer>
     </article>
   )

@@ -266,9 +266,6 @@
     border-left-color: #d97706;
     background-color: #fffbeb;
   }
-  [data-theme='dark'] .editorial-infobox-clave {
-    background-color: rgba(217, 119, 6, 0.12);
-  }
   .editorial-infobox-clave .editorial-infobox-label {
     color: #b45309;
   }
@@ -277,9 +274,6 @@
     border-left-color: #dc2626;
     background-color: #fef2f2;
   }
-  [data-theme='dark'] .editorial-infobox-impacto {
-    background-color: rgba(220, 38, 38, 0.12);
-  }
   .editorial-infobox-impacto .editorial-infobox-label {
     color: #b91c1c;
   }
@@ -287,9 +281,6 @@
   .editorial-infobox-importa {
     border-left-color: #2563eb;
     background-color: #eff6ff;
-  }
-  [data-theme='dark'] .editorial-infobox-importa {
-    background-color: rgba(37, 99, 235, 0.12);
   }
   .editorial-infobox-importa .editorial-infobox-label {
     color: #1d4ed8;
@@ -306,5 +297,31 @@
   .editorial-infobox-default {
     border-left-color: var(--primary-20);
     background-color: var(--primary-05);
+  }
+
+  /* ─── Journal TOC styles ──────────────────────────── */
+  .journal-toc-section {
+    @apply mb-12;
+  }
+  .journal-toc-section h2 {
+    @apply font-serif text-xl mb-6 pb-2;
+    color: var(--accent);
+    border-bottom: 2px solid var(--accent);
+  }
+  .journal-toc-item {
+    @apply flex items-start gap-4 py-3 border-b;
+    border-color: var(--primary-10);
+  }
+  .journal-toc-item:last-child {
+    @apply border-b-0;
+  }
+  .journal-toc-num {
+    @apply text-lg font-bold flex-shrink-0;
+    color: var(--accent);
+    min-width: 2rem;
+  }
+  .journal-toc-meta {
+    @apply text-xs uppercase tracking-wider mb-0.5;
+    color: var(--primary-60);
   }
 }
