@@ -23,6 +23,7 @@
     "lint:fix": "eslint . --ext .ts --ext .tsx --ext .js --fix",
     "format": "prettier . --write",
     "find:unused": "next-unused",
+    "postinstall": "node -e \"try{const fs=require('fs'),p=require('path'),pkg=JSON.parse(fs.readFileSync(p.join(p.dirname(require.resolve('next/package.json')),'node_modules','postcss','package.json'),'utf-8'));delete pkg.exports;fs.writeFileSync(p.join(p.dirname(require.resolve('next/package.json')),'node_modules','postcss','package.json'),JSON.stringify(pkg,null,2))}catch(e){console.log('[postinstall] postcss patch:',e.message)}\"",
     "prepare": "husky install"
   },
   "lint-staged": {
@@ -62,9 +63,7 @@
       "pages"
     ]
   },
-  "overrides": {
-    "postcss": "^8.4.31"
-  },
+
   "dependencies": {
     "body-scroll-lock": "^3.1.5",
     "classnames": "^2.2.6",
