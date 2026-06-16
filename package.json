@@ -16,8 +16,8 @@
   "scripts": {
     "dev": "next dev",
     "dev:inspect": "NODE_OPTIONS='--inspect' next dev",
-    "build": "next build",
-    "start": "next start",
+    "build": "NODE_OPTIONS=--openssl-legacy-provider next build",
+    "start": "NODE_OPTIONS=--openssl-legacy-provider next start",
     "type-check": "tsc --pretty --noEmit",
     "lint": "eslint . --ext .ts --ext .tsx --ext .js",
     "lint:fix": "eslint . --ext .ts --ext .tsx --ext .js --fix",
