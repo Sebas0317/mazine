@@ -15,7 +15,7 @@ export async function getStaticPaths() {
 
   return {
     paths: articles.map((article) => `/articles/${article.slug}`),
-    fallback: true, // Needs to be `true` to enable preview mode
+    fallback: 'blocking', // `blocking` is better UX than `true` — no loading flash on first visit, still supports preview mode
   }
 
   // If you have too many articles you can pass no paths at all an generate all the pages at request time.

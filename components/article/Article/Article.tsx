@@ -114,6 +114,7 @@ function Article({ article }: { article: TArticle | undefined }) {
                   alt={article.cover.alternativeText || ''}
                   width={article.cover.width}
                   height={article.cover.height}
+                  priority
                 />
               </div>
             )
@@ -127,6 +128,7 @@ function Article({ article }: { article: TArticle | undefined }) {
                   width={800}
                   height={500}
                   layout="responsive"
+                  priority
                 />
               </div>
             )

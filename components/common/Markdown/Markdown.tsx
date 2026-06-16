@@ -1,5 +1,5 @@
 import { ReactNode } from 'react'
-import ReactMarkdown from 'react-markdown'
+import dynamic from 'next/dynamic'
 import Image from 'next/image'
 import { getMediaURL } from '@lib/api'
 import {
@@ -8,7 +8,10 @@ import {
   ActorCards,
   StatCards,
   InfoBox,
+  ComparisonGrid,
 } from './EditorialComponents'
+
+const ReactMarkdown = dynamic(() => import('react-markdown'), { ssr: true })
 
 const ParagraphRenderer = (props: any) => {
   const element = props.children?.[0]
@@ -75,6 +78,12 @@ function parseMarkdownTable(block: string): {
   return { headers, rows }
 }
 
+function isEntityRoleTable(headers: string[]): boolean {
+  const h = headers.map((s) => s.toLowerCase().trim())
+  const entityCol1 = ['quién', 'quien', 'actor', 'actores', 'personaje', 'personajes', 'persona', 'personas']
+  return entityCol1.includes(h[0])
+}
+
 function getTableType(headers: string[]) {
   const h = headers.map((s) => s.toLowerCase().trim())
   if (
@@ -82,7 +91,10 @@ function getTableType(headers: string[]) {
     (h[0] === 'año' || h[0] === 'a\u00f1o' || h[0] === 'year')
   )
     return 'timeline'
-  if (h.length === 2) return 'actor-cards'
+  if (h.length === 2) {
+    if (isEntityRoleTable(headers)) return 'actor-cards'
+    return 'comparison-grid'
+  }
   if (h.length >= 3) return 'data-grid'
   return 'default'
 }
@@ -102,6 +114,13 @@ function parseTableToSegment(block: string): {
 } | null {
   if (!isMarkdownTable(block)) return null
   const { headers, rows } = parseMarkdownTable(block)
+
+  // Stat table check applies to any 2-column table with numeric data
+  if (headers.length === 2 && isStatTable(headers, rows)) {
+    const items = rows.map((r) => ({ metric: r[0] || '', value: r[1] || '' }))
+    return { type: 'table', component: <StatCards items={items} /> }
+  }
+
   const tableType = getTableType(headers)
 
   if (tableType === 'timeline') {
@@ -114,15 +133,15 @@ function parseTableToSegment(block: string): {
   }
 
   if (tableType === 'actor-cards') {
-    if (isStatTable(headers, rows)) {
-      const items = rows.map((r) => ({ metric: r[0] || '', value: r[1] || '' }))
-      return { type: 'table', component: <StatCards items={items} /> }
-    }
     const items = rows.map((r) => ({
       entity: r[0] || '',
       role: r[1] || '',
     }))
     return { type: 'table', component: <ActorCards items={items} /> }
+  }
+
+  if (tableType === 'comparison-grid') {
+    return { type: 'table', component: <ComparisonGrid headers={headers} rows={rows} /> }
   }
 
   return null

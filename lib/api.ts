@@ -5,7 +5,17 @@ export function getStrapiURL(path: string) {
 // Helper to make GET requests to Strapi
 export async function fetchAPI(path: string) {
   const requestUrl = getStrapiURL(path)
-  const response = await fetch(requestUrl)
+  let response
+  try {
+    response = await fetch(requestUrl)
+  } catch {
+    console.warn(`[api] No se pudo conectar a ${requestUrl} — devuelve datos vacíos`)
+    return []
+  }
+  if (!response.ok) {
+    console.warn(`[api] ${requestUrl} respondió ${response.status} — devuelve datos vacíos`)
+    return []
+  }
   const data = await response.json()
   return data
 }

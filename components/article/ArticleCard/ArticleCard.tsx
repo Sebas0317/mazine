@@ -4,21 +4,11 @@ import Link from 'next/link'
 import s from './ArticleCard.module.css'
 import cn from 'classnames'
 import Image from 'next/image'
-import { getArticleImage } from '@lib/articleImages'
+import { getArticleImage, getCategoryImage } from '@lib/articleImages'
 
 type Props = {
   article: TArticle
   variant?: 'default' | 'carousel'
-}
-
-const CATEGORY_IMAGES: Record<string, string> = {
-  politica: 'https://images.unsplash.com/photo-1541872703-74c5e44368f9?w=600&h=400&fit=crop',
-  constitucionalismo: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=600&h=400&fit=crop',
-  estado: 'https://images.unsplash.com/photo-1575505586567-535a1e0e0b5f?w=600&h=400&fit=crop',
-  democracia: 'https://images.unsplash.com/photo-1540910419892-4a36d2afc4cb?w=600&h=400&fit=crop',
-  derechos: 'https://images.unsplash.com/photo-1516302752625-fccf828c51be?w=600&h=400&fit=crop',
-  'participacion-ciudadana': 'https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=600&h=400&fit=crop',
-  'casos-de-estudio': 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=600&h=400&fit=crop',
 }
 
 const ArticleCard = ({ article, variant = 'default' }: Props) => {
@@ -29,7 +19,7 @@ const ArticleCard = ({ article, variant = 'default' }: Props) => {
 
   const coverUrl = article.cover
     ? getMediaURL(article.cover.formats.medium?.url || article.cover.url)
-    : getArticleImage() || CATEGORY_IMAGES[article.category.slug] || CATEGORY_IMAGES['casos-de-estudio']
+    : getArticleImage() || getCategoryImage(article.category.slug, 'card')
 
   return (
     <article className={rootClassName}>

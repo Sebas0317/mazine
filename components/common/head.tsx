@@ -3,18 +3,15 @@ import { useTheme } from 'next-themes'
 import NextHead from 'next/head'
 import { DefaultSeo } from 'next-seo'
 import { getMediaURL } from '@lib/api'
-import { register, unregister } from 'next-offline/runtime'
 import { OG_IMAGE, SEO_DESCRIPTION, SITE_NAME, SITE_URL } from '@lib/constants'
 
 const Head = () => {
   const { systemTheme } = useTheme()
 
   useEffect(() => {
-    // Prevent registering the sw on development
     if (process.env.NODE_ENV === 'development') return
-    register('/service-worker.js', { scope: '/' })
-    return () => {
-      unregister()
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/sw.js', { scope: '/' })
     }
   }, [])
 
@@ -95,7 +92,6 @@ const Head = () => {
         {/* Dynamic favicon */}
         {!systemTheme || systemTheme === 'light' ? (
           <>
-            å
             <link
               rel="icon"
               type="image/png"

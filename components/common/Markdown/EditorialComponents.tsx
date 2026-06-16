@@ -89,6 +89,38 @@ export function ActorCards({
   )
 }
 
+// ─── ComparisonGrid (2‑column comparison tables) ────────────
+export function ComparisonGrid({
+  headers,
+  rows,
+}: {
+  headers: string[]
+  rows: string[][]
+}) {
+  return (
+    <div className="editorial-comparison-grid">
+      <div className="editorial-comparison-header">
+        {headers.map((h, i) => (
+          <div key={i} className="editorial-comparison-hcell">{h}</div>
+        ))}
+      </div>
+      {rows.map((row, ri) => (
+        <div key={ri} className="editorial-comparison-row">
+          {row.map((cell, ci) => (
+            <div key={ci} className="editorial-comparison-cell">{cell}</div>
+          ))}
+        </div>
+      ))}
+    </div>
+  )
+}
+
+function isEntityRoleTable(headers: string[]): boolean {
+  const h = headers.map((s) => s.toLowerCase().trim())
+  const entityCol1 = ['quién', 'quien', 'actor', 'actores', 'personaje', 'personajes', 'persona', 'personas']
+  return entityCol1.includes(h[0])
+}
+
 // ─── StatCards (single‑metric highlight) ──────────────────
 export function StatCards({
   items,
@@ -213,7 +245,10 @@ export function detectTableType(headers: string[]) {
   if (h.length >= 2 && (h[0] === 'año' || h[0] === 'a\u00f1o' || h[0] === 'year'))
     return 'timeline'
 
-  if (h.length === 2) return 'actor-cards'
+  if (h.length === 2) {
+    if (isEntityRoleTable(headers)) return 'actor-cards'
+    return 'comparison-grid'
+  }
 
   if (h.length >= 3) return 'data-grid'
 

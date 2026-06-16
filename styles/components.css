@@ -203,6 +203,30 @@
     background-color: var(--primary-05);
   }
 
+  .editorial-comparison-grid {
+    @apply my-8 border rounded-xl overflow-hidden;
+    border-color: var(--primary-20);
+  }
+  .editorial-comparison-header {
+    @apply flex text-sm font-bold uppercase tracking-wider;
+    background-color: var(--accent);
+    color: var(--secondary);
+  }
+  .editorial-comparison-hcell {
+    @apply flex-1 px-4 py-3;
+  }
+  .editorial-comparison-row {
+    @apply flex;
+    border-top: 1px solid var(--primary-10);
+  }
+  .editorial-comparison-cell {
+    @apply flex-1 px-4 py-3 text-sm leading-relaxed;
+    color: var(--primary-70);
+  }
+  .editorial-comparison-row:nth-child(even) {
+    background-color: var(--primary-05);
+  }
+
   .editorial-actor-cards {
     @apply grid grid-cols-1 sm:grid-cols-2 gap-4 my-8;
   }

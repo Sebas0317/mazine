@@ -9,10 +9,10 @@ if (typeof importScripts === 'function') {
     workbox.core.clientsClaim()
 
     /* injection point for manifest files.  */
-    const WB_MANIFEST = self.__WB_MANIFEST
+    const WB_MANIFEST = self.__WB_MANIFEST || []
 
     // precache fallback route
-    WB_MANIFEST.push({ url: '/offline', revision: '12345678' })
+    WB_MANIFEST.push({ url: '/offline', revision: '1' })
     workbox.precaching.precacheAndRoute(WB_MANIFEST)
 
     workbox.precaching.cleanupOutdatedCaches()

@@ -6,22 +6,12 @@ import cn from 'classnames'
 import Image from 'next/image'
 import ArticleCardTop from '../ArticleCard/ArticleCardTop'
 import ActionButtons from '../Article/ActionButtons'
-import { getArticleImageLarge } from '@lib/articleImages'
-
-const CATEGORY_IMAGES: Record<string, string> = {
-  politica: 'https://images.unsplash.com/photo-1541872703-74c5e44368f9?w=800&h=500&fit=crop',
-  constitucionalismo: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=800&h=500&fit=crop',
-  estado: 'https://images.unsplash.com/photo-1575505586567-535a1e0e0b5f?w=800&h=500&fit=crop',
-  democracia: 'https://images.unsplash.com/photo-1540910419892-4a36d2afc4cb?w=800&h=500&fit=crop',
-  derechos: 'https://images.unsplash.com/photo-1516302752625-fccf828c51be?w=800&h=500&fit=crop',
-  'participacion-ciudadana': 'https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=800&h=500&fit=crop',
-  'casos-de-estudio': 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&h=500&fit=crop',
-}
+import { getArticleImageLarge, getCategoryImage } from '@lib/articleImages'
 
 const ArticlesHero = ({ articles }: { articles: TArticle[] }) => {
   const coverUrl = articles[0]?.cover
     ? getMediaURL(articles[0].cover.formats.medium?.url || articles[0].cover.url)
-    : getArticleImageLarge() || CATEGORY_IMAGES[articles[0]?.category?.slug] || CATEGORY_IMAGES['casos-de-estudio']
+    : getArticleImageLarge() || getCategoryImage(articles[0]?.category?.slug, 'hero')
 
   return (
     <section className="mb-4 flex justify-between items-start gap-8">

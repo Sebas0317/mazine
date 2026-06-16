@@ -1,4 +1,4 @@
-export const SITE_URL = 'https://magazine-starter.vercel.app'
+export const SITE_URL = 'https://mazine.vercel.app' // ⬅️ Cámbialo por tu URL real de Vercel después del deploy
 export const SITE_NAME = 'Revista Digital'
 export const SITE_LOGO = ''
 
