@@ -32,7 +32,10 @@
     ]
   },
   "engines": {
-    "node": ">=14.0.0 <=16.x.x"
+    "node": "20.x"
+  },
+  "overrides": {
+    "postcss": "^8.4.31"
   },
   "prettier": {
     "semi": false,
@@ -90,7 +93,7 @@
     "husky": ">=6",
     "lint-staged": ">=10",
     "next-unused": "0.0.6",
-    "postcss": "^8.1.10",
+    "postcss": "^8.4.31",
     "postcss-nesting": "^7.0.1",
     "prettier": "^2.1.2",
     "tailwindcss": "^2.0.1",
