@@ -1,177 +1,104 @@
-# Digital Magazine Starter Kit
+# Academic Digital Portfolio — Political Constitution of Colombia
 
-#### Live demo: [https://magazine-starter.vercel.app](https://magazine-starter.vercel.app)
+An academic digital magazine built with **Next.js** and **Strapi CMS** for the Universidad del Tolima's Political Constitution course (IDEAD — Systems Engineering). This platform publishes educational articles on politics, constitutionalism, democracy, human rights, civic participation, and case studies.
 
-This starter allows you to clone and deploy a fully customizable Digital Magazine in just a few clicks.
+## Built With
 
-<p align="center">
-  <img src="https://res.cloudinary.com/dliiwavlg/image/upload/v1615423117/magazine_he7vqh.png" width="450px" />
-</p>
+- **Framework:** [Next.js 10](https://nextjs.org/) (Static Site Generation + TypeScript)
+- **CMS:** [Strapi](https://strapi.io/) (headless CMS, embedded in `magazine-api/`)
+- **Styling:** Tailwind CSS, CSS Modules, custom design system
+- **PWA:** Workbox service worker for offline support
+- **Storage:** IndexedDB via `idb-keyval` for saving articles offline
+- **SEO:** next-seo, Open Graph, JSON-LD, dynamic sitemap
 
 ## Features
 
-- Great performance and Accessibility
-- SEO and Social Media friendly (Open Graph and JSON-LD)
-- Responsive
-- UI Components
-- Dark and light theme
-- Offline support
-- Save articles to read offline
-- PWA Optimized (installable)
-- Preview unpublished content.
-- Search module and hooks.
-- Static Site Generated with Next.js
-- Dynamically generated sitemap
-- Content creation and managment from Strapi CMS (No code necessary).
-- Google Analytics
+- Static site generation with dynamic content from Strapi
+- Category-based article grouping (table of contents)
+- Dark/light theme (next-themes)
+- Offline support with service worker caching
+- Save articles to read offline (IndexedDB + Content Index API)
+- Full-text search across articles
+- Preview unpublished content via preview secret
+- Google Analytics integration
+- Responsive, accessible design with academic typography
+- University branding (Universidad del Tolima)
 
-## Built with:
+## Project Structure
 
-- Framework: [Next.js](https://nextjs.org)
-  - [TypeScript](https://nextjs.org/docs/basic-features/typescript)
-  - [CSS Modules](https://nextjs.org/docs/basic-features/built-in-css-support)
-  - [Tailwind](https://tailwindcss.com/docs)
-- CMS: [Strapi](https://strapi.com)
-- Other features
-  - [Service Worker](https://developers.google.com/web/fundamentals/primers/service-workers) for offline support.
-  - [IndexedDB](https://developers.google.com/web/ilt/pwa/working-with-indexeddb) for save articles.
+```
+├── components/        # React components (article, common, icons, search, UI)
+├── lib/               # API client, constants, hooks, search, storage
+├── pages/             # Next.js pages (home, articles, contributors, search, 404, offline)
+├── public/            # Static assets (fonts, favicon, images, service worker)
+├── styles/            # Global CSS with academic design tokens
+├── magazine-api/      # Embedded Strapi CMS backend
+└── .env.example       # Environment variables template
+```
 
-## Integrations
+## Getting Started
 
-This project integrates out-of-the-box with [Magazine Strapi CMS](https://github.com/edgarlr/magazine-api).
+### Prerequisites
 
-## Getting started
+- Node.js 20.x
+- npm or yarn
 
-Create your own copy of this project by clicking the ["Use this template"](https://github.com/edgarlr/magazine/generate) button and filling the form.
-
-### Running locally
-
-First, you'll need to have the [Magazine Strapi CMS](https://github.com/edgarlr/magazine-api) running at [http://localhost:1337](http://localhost:1337). You can follow the instructions on that repo to set it up and get it running.
-
-Then, create a folder and `git clone` from your copy of this repository.
-
-Install the dependencies and start the dev server.
+### 1. Start the Strapi CMS
 
 ```bash
-  yarn install
-  yarn dev
+cd magazine-api
+npm install
+npm run develop
 ```
 
-The dev server will run on [http://localhost:3000](http://localhost:3000). If it doesn't work make shure that:
+The admin panel will be available at [http://localhost:1337/admin](http://localhost:1337/admin).
 
-- You've added sample data to Strapi (Contributors, categories and articles are necessary)
-- You've set the Roles & Permissions to `find`on Contributors, Categories, articles and pages. (More info on [Magazine Strapi CMS](https://github.com/edgarlr/magazine-api) running locally instructions.)
-- You've set the `status` of each article and page to be `published`
+### 2. Set up environment variables
 
-### Preview mode
+Copy `.env.example` to `.env.local` and configure:
 
-To try it, create another post but before you set the status to published:
-
-- Set each variable from the `.env.example` into a new file called `.env.local`:
-  - `PREVIEW_SECRET`: can be any string (avoiding spaces). You're are gonna use it later on your CMS too.
-  - `API_URL`: should be set as `http://localhost:1337`(no trailing slash).
-- On your Strapi admin panel go to "Settings" > "Preview Content"
-- Fill the input with your info, the URL should look like this. `http://localhost:1337/api/:contentType-preview?secret=<your-secret>&id=:id`
-- Last, go to any article or page and click the "Preview" button
-
-### Google Analytics
-
-The projects is pre-configured to track the page views with google analytics.
-Read more on [Page views | Google Analytics](https://developers.google.com/analytics/devguides/collection/analyticsjs/pages)
-
-You only need to set the `GA_MEASUREMENT_ID` env variable with your measurement ID.
-
-### Finding your Measurement ID
-
-1. Sing in to [your Analytics Account](https://analytics.google.com)
-2. Go to **Admin** and select the property you want to track from the property column.
-3. Under **Property** click on **Streams**
-4. Select or create a new stream
-5. Your measurement id will be displayed at the top of the page.
-
-### Removing Google Analytics
-
-If you prefer not to use Google Analytics, you can easily remove it.
-
-The tracker consist on two main sections, the initial loading of the scripts on `_document.tsx` and the onRouterChange handler on `\_app.tsx.
-
-#### Removing the initial loader
-
-In `_document.tsx`, remove the two scripts inside the `HEAD` component. Make sure not to remove the entire component. The code after removing them should look like this.
-
-```jsx
-class MyDocument extends Document {
-  // ...
-  render() {
-    return (
-      <Html lang="en">
-        <Head />
-        <body>
-          <Main />
-          <NextScript />
-        </body>
-      </Html>
-    )
-  }
-}
+```
+API_URL=http://localhost:1337
+PREVIEW_SECRET=your-preview-secret
+GA_MEASUREMENT_ID=your-ga-id
 ```
 
-#### Removing the onRouterChange handler
+### 3. Start the frontend
 
-In `_app.tsx` you can comment or remove all the code before the `return`. Remember to remove the `useEffect` and `useRouter` imports as well.
-The component after removing it should look like this.
-
-```jsx
-function MyApp({ Component, pageProps }: AppProps) {
-  return (
-    <UIProvider>
-      <ListProvider>
-        <Head />
-        <Component {...pageProps} />
-      </ListProvider>
-    </UIProvider>
-  )
-}
+```bash
+npm install
+npm run dev
 ```
 
-**NOTE**
-If you're trying to deploy to vercel the `GA_MEASUREMENT_ID` variable will still be needed, but since you have removed all the code that will use it, you can simply fill the field with dummy text.
+Open [http://localhost:3000](http://localhost:3000).
+
+### Seed Content
+
+Create categories (Política, Constitucionalismo, Estado, Democracia, Derechos, Participación Ciudadana, Casos de Estudio), contributors, and articles through the Strapi admin panel. Set articles and pages to `published` status for them to appear on the frontend.
+
+## Preview Mode
+
+1. Set `PREVIEW_SECRET` in `.env.local`
+2. In Strapi admin → Settings → Preview Content, configure the URL:
+   `http://localhost:3000/api/article-preview?secret=<your-secret>&id=:id`
 
 ## Deployment
 
-You'll need to deploy your Strapi CMS first and have your api URL.
+1. Deploy Strapi to a cloud host (Render, Railway, etc.)
+2. Set `API_URL` and `PREVIEW_SECRET` environment variables on Vercel
+3. Deploy the frontend to [Vercel](https://vercel.com)
 
-Click this button below to clone and deploy this project on [vercel](https://vercel.com).
+## Issues Resolved & Improvements
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fnext.js%2Ftree%2Fcanary%2Fexamples%2Fhello-world&env=API_URL,PREVIEW_SECRET,GA_MEASUREMENT_ID&envDescription=API%20Keys%20needed%20for%20the%20application%2C%20preview%20mode%20and%20google%20analytics&envLink=https%3A%2F%2Fgithub.com%2Fedgarlr%2Fmagazine%23preview-mode&project-name=magazine&repo-name=magazine&demo-title=Digital%20Magazine&demo-description=All-in-one%20digital%20magazine%20starter%20kit.&demo-url=https%3A%2F%2Fmagazine-starter.vercel.app&demo-image=https%3A%2F%2Fres.cloudinary.com%2Fdliiwavlg%2Fimage%2Fupload%2Fv1615997486%2FScreen_Shot_2021-03-17_at_10.10.22_jle2xq.png)
-
-Or you can take a look at the docs to [deploy Next.js](https://nextjs.org/docs/deployment).
-
-Don't forget to update your environment variables:
-
-- `PREVIEW_SECRET`: Can be any string (avoiding spaces). It must be same as on your CMS.
-- `API_URL`: URL of your strapi backend. (No trailing slash).
-
-## Customize
-
-### Constants and default SEO
-
-`lib/constants.ts` contains a list of variables you should customize
-
-### Icons and favicon
-
-`public/static/favicon` contains all the icons and favicons. I generated the icons on [https://realfavicongenerator.net](https://realfavicongenerator.net). Generate your own and replace the old ones.
-
-You need to generate the dark mode icons too and name them as `dark-16x16.png` and `dark-32x32.png`
-
-### Sitemap
-
-The sitemap will be generated dynamically using the `lib/constants` info but you need to also configure the site URL on `public/robots.txt`
-
-### Search caveats
-
-Due heroku sleep problem the search hook is really slow. If you're gonna deploy the strapi cms to any platform other than heroku you can uncomment the seach hook and it should work fine. Otherwise, to prevent a slow search, the page will be statically genarated with **ALL** the published articles and run a local search instead.
+| Problem | Solution |
+|---------|----------|
+| Project was a generic starter kit with unrelated demo content | Customized branding, colors, and layout for Universidad del Tolima |
+| Dev-only scripts with hardcoded credentials (`create-articles.ps1`, `create-*.js`, `fix-articles.js`, `migrate-to-remote.js`) | Removed all development scripts from the repository |
+| Log files cluttering the repo (`frontend.err.log`, `frontend.log`, `strapi*.log`) | Cleaned up all runtime log files |
+| Claude IDE settings committed (`.claude/settings.local.json`) | Removed `.claude/` directory |
+| Outdated documentation still referencing the original starter | Replaced with project-specific README |
+| Stale `SITE_URL` pointing to old demo domain | Updated to reflect deployment URL |
 
 ## License
 
-[MIT License](https://github.com/edgarlr/magazine/blob/main/LICENSE).
+MIT — based on the [magazine](https://github.com/edgarlr/magazine) starter kit by edgarlr.
